@@ -1,0 +1,4 @@
+.project
+*.swp
+cache/
+.svn

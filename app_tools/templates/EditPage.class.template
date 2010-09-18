@@ -1,0 +1,42 @@
+<?php
+
+class EditPage extends FormPage {
+
+    function __construct() {
+    	parent::__construct();
+    }
+
+	public function execute() {
+		if( ! $this->loadObject( '{{class_name}}' ) ) {
+			$this->setObject( new {{class_name}}() );
+		}
+	}
+
+	public function validate() {
+//		$this->addErrorIf( ..., 'error message' );
+		$this->validateObject();
+	}
+
+	public function submit() {
+		if( ! $this->getObject()->save() ) {
+			return $this->redirect( url( 'error' ) );
+		}
+		return $this->redirect( url( '{{directory_name}}-show', $this->getObject() ) );
+	}
+
+	public function printTitle() {
+		echo 'Edit/insert {{class_name}}';
+	}
+
+	public function printMain() {
+?>
+<? $this->formStart(); ?>
+
+{{edit_fields}}
+
+<? $this->formSubmit( 'Save' ); ?><br/>
+<? $this->formEnd(); ?>
+<?php
+    }
+
+}

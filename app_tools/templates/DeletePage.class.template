@@ -1,0 +1,21 @@
+<?php
+
+class DeletePage extends Page {
+
+    function __construct() {
+    	parent::__construct();
+    }
+
+	public function execute() {
+		if( ! $this->loadObject( '{{class_name}}' ) ) {
+			return $this->redirect( 'error' );
+		}
+
+		if( ! $this->getObject()->delete() ) {
+			return $this->redirect( 'error' );
+		}
+
+		return $this->redirect( url( '{{directory_name}}-index' ) );
+	}
+
+}

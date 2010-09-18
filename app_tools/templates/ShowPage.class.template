@@ -1,0 +1,28 @@
+<?php
+
+class ShowPage extends Page {
+
+    function __construct() {
+    	parent::__construct();
+    }
+
+	public function execute() {
+		if( ! $this->loadObject( '{{class_name}}' ) ) {
+			return $this->redirect( url( 'error' ) );
+		}
+	}
+
+	public function printTitle() {
+		echo 'Show {{class_name}}';
+	}
+
+	public function printMain() {
+		echo htmlLink( 'Return to index', '{{directory_name}}-index' ). BR;
+		echo htmlLink( 'Edit', '{{directory_name}}-edit', $this->getObject() ). BR;
+		echo confirmLink( 'Delete', 'Are you sure?', '{{directory_name}}-delete', $this->getObject() ). BR;
+?>
+{{show_object}}
+<?
+	}
+
+}

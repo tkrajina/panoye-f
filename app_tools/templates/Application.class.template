@@ -1,0 +1,42 @@
+<?php
+
+FRAMEWORK_VERSION == '{{version}}' or die( 'Invalid framework version' );
+
+class Application extends FrameworkApplicationObject {
+
+    const DB_USER           = '{{db_user}}';
+    const DB_PASSWORD       = '{{db_password}}';
+    const DB_DATABASE       = '{{db_database}}';
+    const DB_HOST           = 'localhost';
+
+    const MAIN_PAGE         = 'main';
+
+    const SITE_URL          = '{{site_url}}';
+    const SITE_TITLE        = '{{site_title}}';
+
+	const SECRET_APP_KEY	= '{{secret_key}}';
+
+    const ITEMS_PER_PAGE = 20;
+
+	const DEBUG             = true;
+//	const DEBUG             = false;
+
+	/**
+	 * If you don't want (or need) search engine friendly links remove the
+	 * .htaccess file and set this property to false.
+	 */
+	const SEF_LINKS			= true;
+
+    public function saveError( $error ) {}
+
+	public function onPage( $page ) {}
+
+	public function onStart() {}
+
+	public function onEnd() {}
+
+	public function getPageAliases() {
+		return array();
+	}
+
+}

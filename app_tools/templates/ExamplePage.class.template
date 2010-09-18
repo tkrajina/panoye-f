@@ -1,0 +1,19 @@
+<?php
+
+class ExamplePage extends Page {
+
+	public function __construct() {
+		parent::__construct();
+	}
+
+	public function execute() {}
+
+	public function printTitle() {
+		echo 'title';
+	}
+
+	public function printMain() {
+		echo 'main';
+	}
+
+}

@@ -1,0 +1,8 @@
+<?php
+
+define( 'APP', 'app/' );
+define( 'CACHE', 'cache/' );
+define( 'FRAMEWORK', 'framework/' );
+define( 'WEB', '' );
+
+include FRAMEWORK . 'main.php';

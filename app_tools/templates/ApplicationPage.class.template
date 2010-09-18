@@ -1,0 +1,11 @@
+<?php
+
+require_once FRAMEWORK . 'crud/AppApplicationPage.class.php';
+
+class ApplicationPage extends AppApplicationPage {
+
+    public function __construct() {
+        parent::__construct();
+    }
+
+}

@@ -1,0 +1,89 @@
+v0.7-2009-10-15:
+	- removed FeedParser
+	- added sufix to DbIterator->printPageIndex()
+v0.7-2009-10-09:
+	- strip tags and 50 length string in Strings::seoFriendly()
+v0.6-2009-09-18:
+	- HtmlLexer instead of HtmlTokenizer
+v0.6-2009-09-06:
+	- in forms - fields marked in red when invalid
+v0.6-2009-08-24:
+	- added ImageBuilder.class.php
+	- sef urls of normal _GET params
+	- error_reporting( E_ALL | E_STRICT ) if Application::DEBUG is on
+	- FeedPasrer with $contentOrUrl arg
+v0.6-2009-06-19:
+	- before*() and after*() methods in AppObject
+v0.6-2009-05-27:
+	- removed Strings::convertToUTF8 (use iconv instead)
+v0.6-2009-05-17:
+	- dates in formas and ORM classes
+v0.6-2009-05-16:
+	- decimal and float from mysql
+	- afterExecute() method in Page
+v0.6-2009-04-26:
+	- cache gzipped contents of a page
+	- removed Session::setPage(), Session::getPage() (not used any more)
+v0.6-2009-04-17:
+	- new version of Tags utility class
+v0.6-2009-04-16:
+	- non sef friendly links (i.e. without the htaccess)
+v0.6-2009-04-13:
+	- unit testing
+v0.6-2009-04-12:
+	- automatic inclusion of include.php in every parent directory of
+	  the current page
+	- bug with tables list in ApplicationPage resolved
+v0.6-2009-04-09:
+	- meta redirect after _POST request
+v0.6-2009-04-07:
+	- confirmLink javascript bug
+	- confirmation before delete
+	- Object instead of AppObject default for Sql and DbIterator
+v0.6-2009-03-29:
+	- Sql instead of Sqls class
+v0.6-2009-03-28:
+	- recreation of sef_url using $object->update( array( 'sef_url' ) );
+	- custom class and directory name when creating a template
+v0.6-2009-03-21:
+	- kod kreiranja datoteka iz templatea neće pregaziti ako već postoji
+	- tinyint i text tipovi iz mysql-a
+v0.6-2009-03-17:
+	- obrisan ajax.php
+	- validate*() metode kod edit-a
+	- ne mora se više eksplicitno koristiti formErrors() kod forme
+v0.6-2009-03-16:
+	- još malo sređeno kreiranje koda
+v0.6-2009-03-15:
+	- charset meta tag i base url prebačen u Page::printHead...()
+	- formRelationSelect kod FormPage
+	- kreiranje template-ova za aplikaciju
+	- kreiranje CRUD templateova
+	- ispravljen dohvat fieldova koji imaju velika i malaslova
+v0.5-2009-03-14:
+	- dbiteratoru ne treba više postavljati property (po defaultu je 'no')
+	- maknut form_classes i vraćemo kao dvije datoteke
+	- sređeno da se propertyiji interno čuvaju s malim početnim slovom i
+	  da se u formama mogu koristiti s malim početnim slovom
+v0.5-2009-03-10:
+	- ispravljen problem zbog kojeg sef_url nije insertiran ispravno
+v0.5-2009-03-09:
+	- automatski canonical link za stranice bez argumenata
+	- kod loadObjectBySefOrCanonicalLink() se vodi računa i o ostalim
+	  _GET parametrima
+	- apsolutni link ako nije zadan apsolutno za canonical link
+	- maknut ajax.js.php
+v0.5-2009-03-08:
+	- ispravljen redirekt na druge sajtove
+v0.5-2009-03-07:
+	- da se može postaviti canonical link umjesto redirecta
+	- backup.psp skripta
+v0.5-2009-03-05:
+	- redirekcija na istu stranicu riješena
+	- update SefUrla na objektu kad se kreira novi
+v0.5-2009-03-02:
+	- kod indeka paginacije - link na prvu i zadnju stranicu
+v0.5-2009-03-01:
+	- update samo određenih kolona
+	- ispravljen nextLink u Wizardu i dupli sef_url
+	- Prebačen u poreban projekt

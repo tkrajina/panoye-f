@@ -1,0 +1,11 @@
+<?php
+
+class ExampleTest extends AppTest {
+
+	public function testExample() {
+		$a = 1;
+		$b = 2;
+		$this->assertTrue( $a + $b == 3 );
+	}
+
+}

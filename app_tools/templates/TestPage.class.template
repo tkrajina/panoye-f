@@ -1,0 +1,11 @@
+<?php
+
+require_once FRAMEWORK . 'test/AppTestPage.class.php';
+
+class TestPage extends AppTestPage {
+
+	public function __construct() {
+		parent::__construct();
+	}
+
+}

@@ -1,0 +1,21 @@
+<?php
+
+class {{class_name}} extends AppObject {
+
+	public function __construct( $arg = null ) {
+		parent::__construct( $arg );
+	}
+
+	public function getTableName() {
+		return '{{table_name}}';
+	}
+
+	public function getTableColumns() {
+		return array(
+{{columns}}
+		);
+	}
+
+{{methods}}
+
+}

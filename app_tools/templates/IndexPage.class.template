@@ -1,0 +1,32 @@
+<?php
+
+class IndexPage extends Page {
+
+	private $iterator;
+
+    function __construct() {
+    	parent::__construct();
+    }
+
+	public function execute() {
+		$this->iterator = new DbIterator( 'select * from {{table_name}} order by id asc', '{{class_name}}' );
+		$this->iterator->paginate();
+	}
+
+	public function printTitle() {
+		echo '{{class_name}} index';
+	}
+
+	public function printMain() {
+		echo htmlLink( 'New', '{{directory_name}}-edit' ) . BR;
+		$this->iterator->printPageIndex( 'More:' );
+		echo '<ul>';
+		while( $object = $this->iterator->next() ) {
+			echo '<li/>';
+			echo $object;
+			echo ' ' . htmlLink( 'show', '{{directory_name}}-show', $object );
+		}
+		echo '</ul>';
+	}
+
+}
