@@ -35,7 +35,7 @@ class PageParser {
 	private function parse() {
 		$paths = $this->pagePaths();
 
-		$pageClassFile = @$paths[ @$_GET[ 'page' ] ];
+		$pageClassFile = @$paths[ @strtolower( @$_GET[ 'page' ] ) ];
 //		ddie( $paths );
 		if( ! $pageClassFile ) {
 			throw new AppException( 'Page not found: ' . $_GET[ 'page' ] . '(' . $pageClassFile . ')' );
