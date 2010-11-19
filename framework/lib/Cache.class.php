@@ -13,7 +13,7 @@ class Cache {
 	}
 
 	public static function getFileName( $cache, $fileName ) {
-		$fileName = strtolower( preg_replace( "/[^\w\d_\-\.]+/", "-", $fileName ) . '_' . substr( md5( '' . $fileName ), 0, 5 ) );
+		$fileName = strtolower( preg_replace( "/[^\w\d_\-\.]+/", "-", @substr( $fileName, 0, 20 ) ) . '_' . substr( md5( '' . $fileName ), 0, 5 ) );
 		return CACHE . "$cache/$fileName";
 	}
 
