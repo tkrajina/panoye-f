@@ -2,7 +2,7 @@
 
 define( 'STARTED', microtime( true ) );
 
-define( 'FRAMEWORK_VERSION', 'v0.7-2010-10-06' );
+define( 'FRAMEWORK_VERSION', 'v0.7' );
 
 if( ! defined( 'APP' ) ) { // Tako da se može includati samo zbog verzije
 	return;
