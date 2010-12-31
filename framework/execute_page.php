@@ -68,7 +68,6 @@ try {
 					header( 'Location: ' . $redirectUrl );
 				}
 
-
 				else {
 					// IE 6 bug when redirecting after POST request:
 					echo '<html>

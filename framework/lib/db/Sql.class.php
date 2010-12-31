@@ -6,10 +6,10 @@ class Sql {
 
 	private $generatedKey;
 
-    public function __construct( $template ) {
-    	$this->template = $template;
-    	return $this;
-    }
+	public function __construct( $template ) {
+		$this->template = $template;
+		return $this;
+	}
 
 	/** Be careful when using this method because of SQL injection. */
 	public function set( $parameter, $value ) {

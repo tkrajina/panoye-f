@@ -72,10 +72,6 @@ class Session {
 		return $id;
 	}
 
-	public static function __toString() {
-		return self::toString();
-	}
-
 	static function toString() {
 		reset( $_SESSION );
 		$result = array();

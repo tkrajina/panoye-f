@@ -1,0 +1,19 @@
+- error handling (primjer je u tmp/error_handling_example.php) [1]
+- snimanje (svih) logova u tablicu
+- snimanje [1] u tablicu
+- prikaz logova (ali samo s nekim API ključem)
+- automatsko generiranje log tablice ukoliko ne postoji
+
+Log tablica:
+	id
+	sesion_id
+	session_vars
+	cookies
+	log
+	min_level
+	max_level
+	created
+	updated
+
+- jedan insert, a ne puno njih
+- insert delayed
