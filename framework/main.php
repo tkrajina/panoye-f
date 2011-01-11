@@ -10,8 +10,8 @@ if( ! defined( 'APP' ) ) { // Tako da se može includati samo zbog verzije
 
 ////////////////////////////////////////////////
 
-$_GET[ 'page' ] = preg_replace( '/[^\w\d\-\.]/',  '', $_GET[ 'page' ] );
-$_GET[ 'arg' ] = preg_replace( '/[^\w\d\-]/',  '', $_GET[ 'arg' ] );
+$_GET[ 'page' ] = @preg_replace( '/[^\w\d\-\.]/',  '', @$_GET[ 'page' ] );
+$_GET[ 'arg' ] = @preg_replace( '/[^\w\d\-]/',  '', @$_GET[ 'arg' ] );
 
 ////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ import( FRAMEWORK . 'lib/Cache.class.php' );
 // Bez ovog vraća neku glupu gresku:
 @session_name('sid');
 
-@session_start();
+session_start();
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -155,4 +155,3 @@ $time = ( microtime( true ) - STARTED );
 $application->onEnd();
 // Pripaziti jer ovo ispisuje i kad je u pitanju javascript!
 // echo '<!--' . $time . '-->';
-
