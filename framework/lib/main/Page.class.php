@@ -61,12 +61,15 @@ class Page {
 	 * {@link #execute()} i {@link #submit()}.
 	 */
 	public function executePage() {
+		$this->beforeExecute();
 		$this->execute();
 		$this->afterExecute();
 	}
 
 	public function execute() {
 	}
+
+	protected function beforeExecute() {}
 
 	protected function afterExecute() {}
 
