@@ -53,7 +53,7 @@ class Sql {
 
 	public function select( $className = 'Object' ) {
 		Db::open();
-		debug( $this->template );
+		Logs::debug( $this->template );
 		return new DbIterator( $this->template, $className );
 	}
 
@@ -72,7 +72,7 @@ class Sql {
 	/** Only the first row of the query. */
 	public function first( $className = 'Object' ) {
 		Db::open();
-		debug( $this->template );
+		Logs::debug( $this->template );
 		$result = @mysql_query( $this->template );
 		if( $array = @mysql_fetch_array( $result ) ) {
 			$object = new $className();
@@ -89,14 +89,14 @@ class Sql {
 
 	public function update() {
 		Db::open();
-		debug( $this->template );
+		Logs::debug( $this->template );
 		$result = @mysql_query( $this->template );
 		return @mysql_affected_rows( $result );
 	}
 
 	public function insert() {
 		Db::open();
-		debug( $this->template );
+		Logs::debug( $this->template );
 		$inserted = mysql_query( $this->template );
 		if( $inserted ) {
 			$this->generatedKey = @mysql_insert_id();
@@ -106,7 +106,7 @@ class Sql {
 
 	public function execute() {
 		Db::open();
-		debug( $this->template );
+		Logs::debug( $this->template );
 		return @mysql_query( $this->template );
 	}
 

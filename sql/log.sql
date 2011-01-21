@@ -1,0 +1,9 @@
+CREATE TABLE  `aquawebshop`.`log` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT ,
+	`level` TINYINT NOT NULL ,
+	`log` VARCHAR( 1000 ) NOT NULL ,
+	`created` TIMESTAMP NULL ,
+	`updated` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL ,
+	PRIMARY KEY (  `id` ) ,
+	INDEX (  `id` )
+) ENGINE = MYISAM;

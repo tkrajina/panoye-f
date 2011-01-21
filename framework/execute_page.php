@@ -56,7 +56,6 @@ try {
 			if( Application::DEBUG ) {
 				echo '<html><body>';
 				echo 'Redirect: <a href="' . $redirectUrl . '">' . $redirectUrl . '</a>';
-				printErrorFrame();
 				echo '</body></html>';
 			}
 			else {
@@ -126,6 +125,5 @@ catch( Exception $e ) {
 	Tags::open( 'html' );
 	Tags::open( 'body' );
 	echo 'Page not found';
-	printErrorFrame();
 	Tags::closeAll();
 }

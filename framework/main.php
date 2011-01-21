@@ -26,6 +26,7 @@ function import( $path1, $path2 = '' ) {
 import( FRAMEWORK, 'init.php' );
 import( FRAMEWORK, 'autoload.php' );
 import( FRAMEWORK . 'lib/Cache.class.php' );
+import( FRAMEWORK . 'lib/Logs.class.php' );
 
 // Ne pomicati ovo prije gornjih importova, jer inače odserijalizira
 // klasu iz sessiona koja još nije učitana:
@@ -148,9 +149,19 @@ if( strlen( $_GET[ 'page' ] ) == 0 ) {
 
 import( FRAMEWORK, 'execute_page.php' );
 
+// Save logs:
+$logs = Logs::getLogs();
+if( sizeof( $logs ) > 0 ) {
+	$level = Logs::getLevel();
+	$logs = implode( "\n", $logs );
+	$sql = new Sql( 'insert delayed into log (level, log, created) values (:level, :log, now())' );
+	$sql->setInt( 'level', $level );
+	$sql->setString( 'log', $logs );
+	$sql->execute();
+}
+
 Db::close();
 
-global $page;
 $time = ( microtime( true ) - STARTED );
 $application->onEnd();
 // Pripaziti jer ovo ispisuje i kad je u pitanju javascript!
