@@ -12,6 +12,8 @@ class Logs {
 
 	private static $maxLevel = 1;
 
+	private static $save = true;
+
 	public static function debug( $log ) {
 		self::$logs[] = '[debug] ' . $log;
 	}
@@ -50,6 +52,14 @@ class Logs {
 
 	public static function getLevel() {
 		return self::$maxLevel;
+	}
+
+	public static function setSave( $save ) {
+		self::$save = $save;
+	}
+
+	public static function isSave() {
+		return self::$save;
 	}
 
 }

@@ -150,14 +150,17 @@ if( strlen( $_GET[ 'page' ] ) == 0 ) {
 import( FRAMEWORK, 'execute_page.php' );
 
 // Save logs:
-$logs = Logs::getLogs();
-if( sizeof( $logs ) > 0 ) {
-	$level = Logs::getLevel();
-	$logs = implode( "\n", $logs );
-	$sql = new Sql( 'insert delayed into log (level, log, created) values (:level, :log, now())' );
-	$sql->setInt( 'level', $level );
-	$sql->setString( 'log', $logs );
-	$sql->execute();
+if( Logs::isSave() ) {
+	$logs = Logs::getLogs();
+	if( sizeof( $logs ) > 0 ) {
+		$level = Logs::getLevel();
+		$logs = implode( "\n", $logs );
+		$sql = new Sql( 'insert delayed into log (level, log, created) values (:level, :log, now())' );
+		$sql->setInt( 'level', $level );
+		$sql->setString( 'log', $logs );
+		$sql->execute();
+	}
+
 }
 
 Db::close();
