@@ -94,7 +94,7 @@ class Mail {
 
 //		d( "@mail( {$this->to}, {$this->subject}, {$this->msg}, $h ) )<br/>" );
 		if( ! mail( $this->to, $this->subject, $this->msg, $h ) ) {
-			error( "Mejl nije poslan... Provjerite posttavke!" );
+			Logs::error( 'Mail ("' . $this->to . '", "' . $this->subject . '") not send!' );
 			return false;
 		}
 		else {

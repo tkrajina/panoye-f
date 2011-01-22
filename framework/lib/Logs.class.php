@@ -19,29 +19,29 @@ class Logs {
 	}
 
 	public static function info( $log ) {
-		if( self::$maxLevel < INFO) {
-			self::$maxLevel = INFO;
+		if( self::$maxLevel < self::INFO) {
+			self::$maxLevel = self::INFO;
 		}
 		self::$logs[] = '[info] ' . $log;
 	}
 
 	public static function warn( $log ) {
-		if( self::$maxLevel < WARN) {
-			self::$maxLevel = WARN;
+		if( self::$maxLevel < self::WARN) {
+			self::$maxLevel = self::WARN;
 		}
 		self::$logs[] = '[warn] ' . $log;
 	}
 
 	public static function error( $log ) {
-		if( self::$maxLevel < ERROR) {
-			self::$maxLevel = ERROR;
+		if( self::$maxLevel < self::ERROR) {
+			self::$maxLevel = self::ERROR;
 		}
 		self::$logs[] = '[error] ' . $log;
 	}
 
 	public static function fatal( $log ) {
-		if( self::$maxLevel < FATAL) {
-			self::$maxLevel = FATAL;
+		if( self::$maxLevel < self::FATAL) {
+			self::$maxLevel = self::FATAL;
 		}
 		self::$logs[] = '[FATAL] ' . $log;
 	}
