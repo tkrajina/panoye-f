@@ -14,36 +14,49 @@ class Logs {
 
 	private static $save = true;
 
+	private static function prepareArgs( $args ) {
+		$result = '';
+		foreach( $args as $arg ) {
+			if( is_array( $arg ) ) {
+				$result .= var_export( $arg, true );
+			}
+			else {
+				$result .= '' . $arg;
+			}
+		}
+		return str_replace( "\n", ' ', $result );
+	}
+
 	public static function debug( $log ) {
-		self::$logs[] = '[debug] ' . $log;
+		self::$logs[] = '[debug] ' . self::prepareArgs( func_get_args() );
 	}
 
 	public static function info( $log ) {
 		if( self::$maxLevel < self::INFO) {
 			self::$maxLevel = self::INFO;
 		}
-		self::$logs[] = '[info] ' . $log;
+		self::$logs[] = '[info] ' . self::prepareArgs( func_get_args() );
 	}
 
 	public static function warn( $log ) {
 		if( self::$maxLevel < self::WARN) {
 			self::$maxLevel = self::WARN;
 		}
-		self::$logs[] = '[warn] ' . $log;
+		self::$logs[] = '[warn] ' . self::prepareArgs( func_get_args() );
 	}
 
 	public static function error( $log ) {
 		if( self::$maxLevel < self::ERROR) {
 			self::$maxLevel = self::ERROR;
 		}
-		self::$logs[] = '[error] ' . $log;
+		self::$logs[] = '[error] ' . self::prepareArgs( func_get_args() );
 	}
 
 	public static function fatal( $log ) {
 		if( self::$maxLevel < self::FATAL) {
 			self::$maxLevel = self::FATAL;
 		}
-		self::$logs[] = '[FATAL] ' . $log;
+		self::$logs[] = '[FATAL] ' . self::prepareArgs( func_get_args() );
 	}
 
 	public static function getLogs() {

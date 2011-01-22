@@ -39,6 +39,15 @@ session_start();
 
 ///////////////////////////////////////////////////////////////////////////////
 
+Logs::info( 'REMOTEADDR:', $_SERVER[ 'REMOTE_ADDR' ] );
+Logs::info( 'AGENT:', $_SERVER[ 'HTTP_USER_AGENT' ] );
+Logs::info( 'GET:', $_GET );
+if( $_POST ) {
+	Logs::info( 'POST:', $_POST );
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 // 1. provjera da nije u cache-u, ako jest onda prikazujemo tu stranicu
 // bez ikakvih drugih icludova:
 
