@@ -1,4 +1,4 @@
-CREATE TABLE  `aquawebshop`.`log` (
+CREATE TABLE  `log` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT ,
 	`level` TINYINT NOT NULL ,
 	`log` VARCHAR( 1000 ) NOT NULL ,
