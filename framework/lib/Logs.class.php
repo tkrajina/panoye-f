@@ -28,10 +28,16 @@ class Logs {
 	}
 
 	public static function debug( $log ) {
+		if( ! self::$save ) {
+			return;
+		}
 		self::$logs[] = '[debug] ' . self::prepareArgs( func_get_args() );
 	}
 
 	public static function info( $log ) {
+		if( ! self::$save ) {
+			return;
+		}
 		if( self::$maxLevel < self::INFO) {
 			self::$maxLevel = self::INFO;
 		}
@@ -39,6 +45,9 @@ class Logs {
 	}
 
 	public static function warn( $log ) {
+		if( ! self::$save ) {
+			return;
+		}
 		if( self::$maxLevel < self::WARN) {
 			self::$maxLevel = self::WARN;
 		}
@@ -46,6 +55,9 @@ class Logs {
 	}
 
 	public static function error( $log ) {
+		if( ! self::$save ) {
+			return;
+		}
 		if( self::$maxLevel < self::ERROR) {
 			self::$maxLevel = self::ERROR;
 		}
@@ -53,6 +65,9 @@ class Logs {
 	}
 
 	public static function fatal( $log ) {
+		if( ! self::$save ) {
+			return;
+		}
 		if( self::$maxLevel < self::FATAL) {
 			self::$maxLevel = self::FATAL;
 		}

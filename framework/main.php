@@ -125,9 +125,11 @@ import( FRAMEWORK, 'FrameworkApplicationObject.class.php' );
 import( APP, 'Application.class.php' );
 import( FRAMEWORK . 'lib/db/Db.class.php' );
 
-if( Application::DEBUG ) {
-	error_reporting( E_ALL | E_STRICT );
+function customErrorReporting( $errno, $errstr, $errfile, $errline, $errcontext ) {
+	Logs::error( 'Error: [' . $errno . '] ' . $errstr . ' in ' . $errfile . ' (line:' . $errline . ') ' . $errcontext );
 }
+
+set_error_handler( 'customErrorReporting', E_ALL );
 
 ///////////////////////////////////////////////////////////////////////////////
 
