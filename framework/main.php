@@ -26,6 +26,7 @@ function import( $path1, $path2 = '' ) {
 import( FRAMEWORK, 'init.php' );
 import( FRAMEWORK, 'autoload.php' );
 import( FRAMEWORK . 'lib/Cache.class.php' );
+import( FRAMEWORK . 'lib/Logs.class.php' );
 
 // Ne pomicati ovo prije gornjih importova, jer inače odserijalizira
 // klasu iz sessiona koja još nije učitana:
@@ -35,6 +36,15 @@ import( FRAMEWORK . 'lib/Cache.class.php' );
 @session_name('sid');
 
 session_start();
+
+///////////////////////////////////////////////////////////////////////////////
+
+Logs::info( 'REMOTEADDR:', $_SERVER[ 'REMOTE_ADDR' ] );
+Logs::info( 'AGENT:', $_SERVER[ 'HTTP_USER_AGENT' ] );
+Logs::info( 'GET:', $_GET );
+if( $_POST ) {
+	Logs::info( 'POST:', $_POST );
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -115,9 +125,11 @@ import( FRAMEWORK, 'FrameworkApplicationObject.class.php' );
 import( APP, 'Application.class.php' );
 import( FRAMEWORK . 'lib/db/Db.class.php' );
 
-if( Application::DEBUG ) {
-	error_reporting( E_ALL | E_STRICT );
+function customErrorReporting( $errno, $errstr, $errfile, $errline, $errcontext ) {
+	Logs::error( 'Error: [' . $errno . '] ' . $errstr . ' in ' . $errfile . '(' . $errline . ') ' . $errcontext );
 }
+
+set_error_handler( 'customErrorReporting', E_ALL );
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -148,9 +160,22 @@ if( strlen( $_GET[ 'page' ] ) == 0 ) {
 
 import( FRAMEWORK, 'execute_page.php' );
 
+// Save logs:
+if( Logs::isSave() ) {
+	$logs = Logs::getLogs();
+	if( sizeof( $logs ) > 0 ) {
+		$level = Logs::getLevel();
+		$logs = implode( "\n", $logs );
+		$sql = new Sql( 'insert delayed into log (level, log, created) values (:level, :log, now())' );
+		$sql->setInt( 'level', $level );
+		$sql->setString( 'log', $logs );
+		$sql->execute();
+	}
+
+}
+
 Db::close();
 
-global $page;
 $time = ( microtime( true ) - STARTED );
 $application->onEnd();
 // Pripaziti jer ovo ispisuje i kad je u pitanju javascript!

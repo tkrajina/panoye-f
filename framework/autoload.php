@@ -9,7 +9,6 @@ defined( 'APP' ) or die( '!' );
 function __autoload( $className ) {
 	// TODO: Pogledati koliko se toga učitava i gdje se može smanjiti broj
 	// učitavanja:
-	debug( 'Učitana klasa:' . $className );
 	$result = AutoloadUtils::getClassPaths();
 	if( ! @$result[ $className ] ) {
 		// TODO: Log greska

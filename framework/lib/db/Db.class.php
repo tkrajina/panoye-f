@@ -27,7 +27,6 @@ class Db {
 			throw new AppException( mysql_error() );
 		}
 		self::$opened = true;
-		debug( 'Konekcija otvorena' );
 	}
 
 	public static function close() {
@@ -70,7 +69,7 @@ class Db {
 
 		if( Application::DEBUG ) {
 			$time = microtime( true ) - $start;
-			info( $sql . '(' . $time . ')' );
+			Logs::info( $sql . '(' . $time . ')' );
 		}
 
 		return $result;
@@ -105,7 +104,7 @@ class Db {
 		$query = @self::query( $sql );
 		if( ! $query ) {
 			$err = @mysql_error();
-			error( $err );
+			Logs::error( $err );
 			throw new AppException( $err );
 		}
 		$result = (int) @mysql_affected_rows( $query );
