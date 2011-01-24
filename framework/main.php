@@ -172,6 +172,10 @@ if( Logs::isSave() ) {
 		$sql->setInt( 'level', $level );
 		$sql->setString( 'log', $logs );
 		$sql->execute();
+		if( $rand( 1, 1000 ) ) {
+			// Once in a while -- delete logs older than 24h
+			$deleteSql = new Sql( 'delete from log where created < adddate( now(), - 1 )' );
+		}
 	}
 
 }

@@ -13,7 +13,22 @@ class FrameworkLogsPage extends Page {
 
 		Logs::setSave( false );
 
-		$sql = new Sql( 'select * from log order by id desc' );
+		$level = $this->getIntParam( 'level' );
+		if( $level ) {
+			$sql = new Sql( 'select * from log where level >= :level order by id desc' );
+			$sql->setInt( 'level', $level );
+		}
+		else {
+			$sql = new Sql( 'select * from log order by id desc' );
+		}
+
+		$delete = $this->getIntParam( 'delete' );
+		if( $delete ) {
+			$deleteSql = new Sql( 'delete from log where created < adddate( now(), - :delete )' );
+			$deleteSql->setInt( 'delete', $delete );
+			$deleteSql->execute();
+		}
+
 		$this->iterator = $sql->select();
 		$this->iterator->paginate();
 	}
@@ -23,6 +38,17 @@ class FrameworkLogsPage extends Page {
 	}
 
 	public function printMain() {
+		echo htmlLink( 'Debug', '/logs', null, array( 'level' => 1 ) );
+		echo ' &nbsp; ';
+		echo htmlLink( 'Info', '/logs', null, array( 'level' => 2 ) );
+		echo ' &nbsp; ';
+		echo htmlLink( 'Warn', '/logs', null, array( 'level' => 3 ) );
+		echo ' &nbsp; ';
+		echo htmlLink( 'Error', '/logs', null, array( 'level' => 4 ) );
+		echo ' &nbsp; ';
+		echo htmlLink( 'Fatal', '/logs', null, array( 'level' => 5 ) );
+		echo ' &nbsp; ';
+		echo htmlLink( 'Delete older than 24h?', '/logs', null, array( 'delete' => 1 ) );
 		echo '<ul>';
 		while( $log = $this->iterator->next() ) {
 			echo '<li>';
