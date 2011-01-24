@@ -26,7 +26,7 @@ class Object {
 			$this->setId( $arg );
 		}
 		else if( ! is_null( $arg ) ) {
-			Logs::error( 'Type??? -> ' . $arg );
+			Logs::error( 'Unknown constructor arg: ', $arg, ' for ', $this );
 		}
 	}
 

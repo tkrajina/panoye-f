@@ -91,7 +91,6 @@ class AppObject extends Object {
 		return DbNames::frameworkToDb( $this->getProperties() );
 	}
 
-
 	public function load() {
 		$this->beforeLoaded();
 		if( ! $this->getId() ) {
