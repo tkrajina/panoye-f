@@ -52,9 +52,10 @@ session_start();
 
 ///////////////////////////////////////////////////////////////////////////////
 
-Logs::info( 'REMOTEADDR:', $_SERVER[ 'REMOTE_ADDR' ] );
-Logs::info( 'AGENT:', $_SERVER[ 'HTTP_USER_AGENT' ] );
-Logs::info( 'GET:', $_GET );
+Logs::info( 'REMOTEADDR:', @$_SERVER[ 'REMOTE_ADDR' ] );
+Logs::info( 'REFERER:', @$_SERVER[ 'HTTP_REFERER' ] );
+Logs::info( 'AGENT:', @$_SERVER[ 'HTTP_USER_AGENT' ] );
+Logs::info( 'GET:', @$_GET );
 if( $_POST ) {
 	// Only keys for POST, because otherwise the password would be 
 	// visible in the log (TODO):
