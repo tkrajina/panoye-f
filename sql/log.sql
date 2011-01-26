@@ -7,3 +7,5 @@ CREATE TABLE  `log` (
 	PRIMARY KEY (  `id` ) ,
 	INDEX (  `id` )
 ) ENGINE = MYISAM;
+
+ALTER TABLE  `log` CHANGE  `log`  `log` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

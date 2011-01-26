@@ -375,7 +375,7 @@ class Page {
 
 		$contentType = $this->getContentType();
 		if( @strlen( $contentType ) > 0 ) {
-			$cacheFunction .= "\n" . 'function ___cache_content_type($seconds,$logged){return ' . $contentType . ';}';
+			$cacheFunction .= "\n" . 'function ___cache_content_type($seconds,$logged){return "' . $contentType . '";}';
 		}
 
 		Cache::save( self::CACHE_EXPRESSIONS, $_SERVER[ 'QUERY_STRING' ], $cacheFunction );
