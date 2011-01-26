@@ -24,25 +24,25 @@ class Sql {
 
 	public function setInt( $parameter, $value ) {
 		$this->template = str_replace( ':' . $parameter, (int) $value, $this->template );
-    	return $this;
+		return $this;
 	}
 
 	public function setDecimal( $parameter, $value ) {
 		$this->template = str_replace( ':' . $parameter, (double) $value, $this->template );
-    	return $this;
+		return $this;
 	}
 
 	public function setString( $parameter, $value ) {
 		Db::open();
-	    if( get_magic_quotes_gpc() ) {
-	        $value = stripslashes( $value );
-	    }
+		if( get_magic_quotes_gpc() ) {
+			$value = stripslashes( $value );
+		}
 		else {
 			$value = $value;
 		}
 		if( ! is_numeric( $value ) ) {
-	        $value = mysql_real_escape_string( $value );
-	    }
+			$value = mysql_real_escape_string( $value );
+		}
 		$this->template = str_replace( ':' . $parameter, '\'' . $value . '\'', $this->template );
 		return $this;
 	}
