@@ -120,9 +120,11 @@ if( Logs::isSave() ) {
 	if( sizeof( $logs ) > 0 ) {
 		$level = Logs::getLevel();
 		$logs = implode( "\n", $logs );
-		$sql = new Sql( 'insert delayed into log (level, log, created) values (:level, :log, now())' );
+		$sql = new Sql( 'insert delayed into log (level, log, session_id, time, created) values (:level, :log, :session, :time, now())' );
 		$sql->setInt( 'level', $level );
 		$sql->setString( 'log', $logs );
+		$sql->setString( 'session', Session::getId() );
+		$sql->setDecimal( 'time', $time );
 		$sql->execute();
 		if( rand( 1, 1000 ) ) {
 			// Once in a while -- delete logs older than 24h
