@@ -111,7 +111,10 @@ if( ! $executedCachedPage ) {
 	import( FRAMEWORK, 'execute_page.php' );
 }
 
-// Save logs:
+$time = ( microtime( true ) - STARTED );
+$application->onEnd();
+Logs::info( 'Page execution time:', $time );
+
 if( Logs::isSave() ) {
 	$logs = Logs::getLogs();
 	if( sizeof( $logs ) > 0 ) {
@@ -131,7 +134,3 @@ if( Logs::isSave() ) {
 
 Db::close();
 
-$time = ( microtime( true ) - STARTED );
-$application->onEnd();
-// Pripaziti jer ovo ispisuje i kad je u pitanju javascript!
-// echo '<!--' . $time . '-->';

@@ -16,9 +16,6 @@ function printGzippedPage( $gzipped ) {
 		$encoding = false;
 	}
 
-	Logs::debug( 'Encoding:', $encoding );
-	Logs::debug( 'Gzipped:', strlen( $gzipped ), ' bytes' );
-
 	if( $encoding ) {
 		header( 'Content-Encoding: ' . $encoding );
 		echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
@@ -40,9 +37,9 @@ function executeCachedPage( $fileName, $queryString ) {
 		$logged = is_object( Session::getUser() );
 
 		if( is_callable( '___cache_content_type' ) ) {
-			$contentType = @___cache_content_type();
+			$contentType = ___cache_content_type( $seconds, $logged );
 			if( ( (int) @strlen( $contentType ) ) > 0 ) {
-				$put->setHeader( 'Content-Type', $contentType );
+				header( 'Content-Type', $contentType );
 			}
 		}
 
