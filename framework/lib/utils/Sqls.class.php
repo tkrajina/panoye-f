@@ -15,7 +15,7 @@ class Sqls {
 
 	public static function replace( $sqlTemplate, $arrayOrObject1, $object2 = null, $object3 = null, $object4 = null ) {
 		if( Application::DEBUG ) {
-			echo 'Deprecated, use Sql instead';
+			Logs::warn( 'Deprecated, use Sql instead' );
 		}
 		$result = $sqlTemplate;
 		if( is_array( $arrayOrObject1 ) ) {
@@ -36,21 +36,21 @@ class Sqls {
 
 	public static function prepareInt( $value ) {
 		if( Application::DEBUG ) {
-			echo 'Deprecated, use Db:: instead';
+			Logs::warn( 'Deprecated, use Db:: instead' );
 		}
 		return Db::prepareInt( $value );
 	}
 
 	public static function prepareDecimal( $value ) {
 		if( Application::DEBUG ) {
-			echo 'Deprecated, use Db:: instead';
+			Logs::warn( 'Deprecated, use Db:: instead' );
 		}
 		return Db::prepareDecimal( $value );
 	}
 
 	public static function prepareString( $value ) {
 		if( Application::DEBUG ) {
-			echo 'Deprecated, use Db:: instead';
+			Logs::warn( 'Deprecated, use Db:: instead' );
 		}
 		return Db::prepareString( $value );
 	}

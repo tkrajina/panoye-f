@@ -26,7 +26,7 @@ class Object {
 			$this->setId( $arg );
 		}
 		else if( ! is_null( $arg ) ) {
-			error( 'Tip??? -> ' . $arg );
+			Logs::error( 'Unknown constructor arg: ', $arg, ' for ', $this );
 		}
 	}
 
@@ -44,7 +44,7 @@ class Object {
 			$this->set( $property, @$arguments[ 0 ] );
 		}
 		else {
-			error( 'Method not found:' . $method );
+			Logs::error( 'Method not found:' . $method );
 			throw new AppException( 'Method not found:' . $method ); // TODO: Greska
 		}
 	}
@@ -104,7 +104,7 @@ class Object {
 
 	public function copyProperty( $object, $property ) {
 		if( ! is_object( $object ) ) {
-			error( 'Object nije objekt!' );
+			Logs::error( 'Object not an object!' );
 			return;
 		}
 		$this->set( $property, $object->get( $property ) );

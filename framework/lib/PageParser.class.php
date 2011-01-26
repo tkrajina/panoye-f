@@ -89,7 +89,7 @@ class PageParser {
 		foreach( $fields as $key ) {
 			$parts = split( ':', $key );
 			if( sizeof( $parts ) != 2 ) {
-				error( 'Neispravno post polje: ' . $key );
+				Logs::error( 'Neispravno post polje: ' . $key );
 			}
 			else {
 				global $queryString;
@@ -98,7 +98,7 @@ class PageParser {
 					$result[ $parts[ 1 ] ] = $_POST[ $parts[ 1 ] ];
 				}
 				else {
-					error( 'Ne valja hash od: ' . $key );
+					Logs::error( 'Ne valja hash od: ' . $key );
 				}
 			}
 		}

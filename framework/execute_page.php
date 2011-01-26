@@ -120,7 +120,7 @@ catch( Exception $e ) {
 	if( Application::DEBUG ) {
 		echo '<pre>' . $e . '</pre>';
 	}
-	error( 'Page not found:' . $_SERVER[ 'QUERY_STRING' ] );
+	Logs::error( 'Page not found:' . $_SERVER[ 'QUERY_STRING' ] );
 	header('HTTP/1.0 404 Not Found');
 	Tags::open( 'html' );
 	Tags::open( 'body' );
