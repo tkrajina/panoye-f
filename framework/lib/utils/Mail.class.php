@@ -92,9 +92,8 @@ class Mail {
 			$h .= 'X-Mailer: PHP v' . phpversion() . '\r\n';
 		}
 
-//		d( "@mail( {$this->to}, {$this->subject}, {$this->msg}, $h ) )<br/>" );
 		if( ! mail( $this->to, $this->subject, $this->msg, $h ) ) {
-			Logs::error( 'Mail ("' . $this->to . '", "' . $this->subject . '") not send!' );
+			Logs::error( 'Mail ("' . $this->to . '", "' . $this->subject . '") not sent!' );
 			return false;
 		}
 		else {
