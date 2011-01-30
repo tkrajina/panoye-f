@@ -117,10 +117,7 @@ Redirecting to <a href="' . $redirectUrl . '">' . str_replace( 'http://', '', $r
 	}
 }
 catch( Exception $e ) {
-	if( Application::DEBUG ) {
-		echo '<pre>' . $e . '</pre>';
-	}
-	Logs::error( 'Page not found:' . $_SERVER[ 'QUERY_STRING' ] );
+	Logs::fatal( $e );
 	header('HTTP/1.0 404 Not Found');
 	Tags::open( 'html' );
 	Tags::open( 'body' );
