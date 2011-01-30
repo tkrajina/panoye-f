@@ -23,13 +23,13 @@
 
 class Mail {
 
-	var $to = "";
-	var $from = "";
-	var $reply = "";
-	var $xmailer = "";
-	var $subject = "";
-	var $msg = "";
-	var $contentType = 'text/plain';
+	private $to = "";
+	private $from = "";
+	private $reply = "";
+	private $xmailer = "";
+	private $subject = "";
+	private $msg = "";
+	private $contentType = 'text/plain';
 
 	function __construct( $from = '', $to = '', $subject = '', $message = '' ) {
 		$this->to = $to;
@@ -92,9 +92,10 @@ class Mail {
 			$h .= 'X-Mailer: PHP v' . phpversion() . '\r\n';
 		}
 
-//		d( "@mail( {$this->to}, {$this->subject}, {$this->msg}, $h ) )<br/>" );
-		if( ! mail( $this->to, $this->subject, $this->msg, $h ) ) {
-			Logs::error( 'Mail ("' . $this->to . '", "' . $this->subject . '") not send!' );
+		$subject = '=?UTF-8?B?' . base64_encode( $this->subject ) . '?=';
+
+		if( ! mail( $this->to, $subject, $this->msg, $h ) ) {
+			Logs::error( 'Mail ("' . $this->to . '", "' . $this->subject . '") not sent!' );
 			return false;
 		}
 		else {

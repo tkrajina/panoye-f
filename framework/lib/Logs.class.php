@@ -21,7 +21,12 @@ class Logs {
 				$result .= var_export( $arg, true );
 			}
 			else {
-				$result .= '' . $arg;
+				try {
+					$result .= '' . $arg;
+				}
+				catch( Exception $e ) {
+					$result .= '[Can\'t convert arg to string]';
+				}
 			}
 		}
 		return str_replace( "\n", ' ', $result );

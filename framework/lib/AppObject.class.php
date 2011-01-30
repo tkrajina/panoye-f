@@ -172,6 +172,10 @@ class AppObject extends Object {
 	private function sqlSetData( $updateColumns = null, $createSefUrl = false ) {
 		$result = array();
 
+		if( ! $updateColumns ) {
+			$updateColumns = array();
+		}
+
 		$columns =& $this->tableColumns;
 		@ $properties =& $this->getSqlProperties();
 
