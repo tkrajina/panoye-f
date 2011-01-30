@@ -46,12 +46,12 @@ class Db {
 
 	public static function prepareString( $value ) {
 		self::open(); // Jer inace ne bi radile ove sljedece funkcije:
-	    if( get_magic_quotes_gpc() ) {
-	        $value = stripslashes( $value );
-	    }
+		if( get_magic_quotes_gpc() ) {
+			$value = stripslashes( $value );
+		}
 		if( ! is_numeric( $value ) ) {
-	        $value = mysql_real_escape_string($value);
-	    }
+			$value = mysql_real_escape_string($value);
+		}
 		return '\'' . $value . '\'';
 	}
 
@@ -61,16 +61,13 @@ class Db {
 			self::open();
 		}
 
-		if( Application::DEBUG ) {
-			$start = microtime( true );
-		}
+		$start = microtime( true );
+		Logs::debug( $sql );
 
 		$result = @mysql_query( $sql );
 
-		if( Application::DEBUG ) {
-			$time = microtime( true ) - $start;
-			Logs::info( $sql . '(' . $time . ')' );
-		}
+		$time = microtime( true ) - $start;
+		Logs::debug( 'Query time:', $time );
 
 		return $result;
 	}
