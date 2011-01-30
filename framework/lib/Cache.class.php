@@ -65,7 +65,10 @@ class Cache {
 	}
 
 	public static function delete( $cache, $fileName ) {
-		@unlink( self::getFileName( $cache, $fileName ) );
+		$file = self::getFileName( $cache, $fileName );
+		if( is_file( $file ) ) {
+			@unlink( $file );
+		}
 	}
 
 	public static function isCached( $cache, $fileName ) {
