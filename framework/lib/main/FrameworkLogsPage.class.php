@@ -22,6 +22,12 @@ class FrameworkLogsPage extends Page {
 			$sql = new Sql( 'select * from log order by id desc' );
 		}
 
+		$sessionId = $this->getParam( 'session' );
+		if( $sessionId ) {
+			$sql = new Sql( 'select * from log where session_id = :session order by id desc' );
+			$sql->setString( 'session', $sessionId );
+		}
+
 		$delete = $this->getIntParam( 'delete' );
 		if( $delete ) {
 			$deleteSql = new Sql( 'delete from log where created < adddate( now(), - :delete )' );
@@ -49,10 +55,14 @@ class FrameworkLogsPage extends Page {
 		echo htmlLink( 'Fatal', '/logs', null, array( 'level' => 5 ) );
 		echo ' &nbsp; ';
 		echo htmlLink( 'Delete older than 24h?', '/logs', null, array( 'delete' => 1 ) );
+		echo BR;
+		$this->iterator->printPageIndex( 'More logs:' );
 		echo '<ul>';
 		while( $log = $this->iterator->next() ) {
 			echo '<li>';
-			echo $log->getCreated() . ':<br>';
+			echo 'Time: ', $log->getCreated(), ' ';
+			echo htmlLink( '[only this session]', '/logs', null, array( 'session' => $log->getSessionId() ) );
+			echo BR;
 			$log = nl2br( $log->getLog() );
 			$log = str_replace( '[debug]', '<span style="color:gray">[debug]</span>', $log );
 			$log = str_replace( '[info]', '<span style="color:blue">[info]</span>', $log );
