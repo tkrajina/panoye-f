@@ -167,9 +167,15 @@ class DbIterator {
 
 	public function jump( $i ) {
 		$size = @mysql_num_rows( $this->query );
+
+		if( $size == 0 ) {
+			return false;
+		}
+
 		if( $i >= $size ) {
 			$i = $size - 1;
 		}
+
 		if( ! @mysql_data_seek( $this->query, $i ) ) {
 			return false;
 		}
