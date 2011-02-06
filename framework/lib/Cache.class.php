@@ -57,6 +57,9 @@ class Cache {
 	/** Vraca starost datoteke u sekundama ili -1 ako ne postoji. */
 	public static function getSeconds( $cache, $fileName ) {
 		$fileName = self::getFileName( $cache, $fileName );
+		if( ! is_file( $fileName ) ) {
+			return -1;
+		}
 		$result = (int) ( time() - @filemtime( $fileName ) );
 		if( $result <= 0 ) {
 			return -1;
