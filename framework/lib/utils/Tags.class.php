@@ -56,4 +56,8 @@ class Tags {
 		self::$opened = array();
 	}
 
+	public static function __callStatic( $method, $arguments ) {
+		throw new AppException( 'Unknown method:', $method );
+	}
+
 }

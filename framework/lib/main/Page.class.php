@@ -552,7 +552,7 @@ class Page {
 		ob_end_clean();
 
 		if( $exception ) {
-			d( $exception ); // TODO
+			throw $exception;
 		}
 		return $contents;
 	}
