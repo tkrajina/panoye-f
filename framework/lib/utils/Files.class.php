@@ -25,26 +25,27 @@
  * Funkcije za rad s datotekama
  */
 class Files {
+
 	/**
 	 * Vraca array s datotekama u odredjenom direktoriju
 	 * vraca i direktorije!
 	 */
 	public static function getAll( $path = "." ) {
 		// echo "path je $path<br/>";
-      $handle = @opendir( $path );
+		$handle = @opendir( $path );
 		if( ! $handle ) {
 			return false;
 		}
 		$ret = array();
-      while( $f = readdir( $handle ) ) {
-         if( $f == "." || $f == ".." ) {
-            continue;
-         }
+		while( $f = readdir( $handle ) ) {
+			if( $f == "." || $f == ".." ) {
+				continue;
+			}
 			$ret[] = $f;
-      }
-      closedir( $handle );
+		}
+		closedir( $handle );
 		return $ret;
-   }
+	}
 
 	public static function getFiles( $path ) {
 		$temp = self::getAll( $path );
@@ -149,31 +150,15 @@ class Files {
 		return is_dir( $path );
 	}
 
-// 2008-09-13
-//	public static function isFile( $path ) {
-//		return is_file( $path );
-//	}
+	public static function remove( $file ) {
+		if( is_file( $file ) ) {
+			return @unlink( $file );
+		}
 
-// 2008-09-13
-//	/**
-//	 * Provjerava da neki path ne pokusava preuzeti nesto izvan www
-//	 * direktorija!
-//	 * path je ok ako u sebi nema ".." ili "/" na pocetku (ili "\")!
-//	 */
-//	public static function pathOK( $path ) {
-//		if( strpos( $path, "/" ) === 0 ||
-//			strpos( $path, "\\" ) === 0 ||
-//			strpos( $path, ".." ) > -1 )
-//		{
-//			return false;
-//		}
-//		else {
-//			return true;
-//		}
-//	}
+		return true;
+	}
 
 	public static function recursiveRemove( $dirname, $removeThis = true ) {
-//		echo (int) is_dir( $dirname );
 		if( ! is_dir( $dirname ) && ! is_file( $dirname ) && ! is_link( $dirname ) ) {
 			return true;
 		}
@@ -192,7 +177,6 @@ class Files {
 			}
 		}
 		closedir( $dir_handle );
-//		echo "Brisanje ... " . $dirname . "<br/>";
 		if( $removeThis ) {
 			rmdir( $dirname );
 		}
@@ -200,5 +184,3 @@ class Files {
 	}
 
 }
-
-?>

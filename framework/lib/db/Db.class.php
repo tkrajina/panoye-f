@@ -104,8 +104,13 @@ class Db {
 			Logs::error( $err );
 			throw new AppException( $err );
 		}
+
+		if( $query === true || $query === false ) {
+			return $query;
+		}
+
 		$result = (int) @mysql_affected_rows( $query );
-//		return $result;
+
 		return true;
 	}
 

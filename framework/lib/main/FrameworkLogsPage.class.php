@@ -55,6 +55,8 @@ class FrameworkLogsPage extends Page {
 		echo htmlLink( 'Fatal', '/logs', null, array( 'level' => 5 ) );
 		echo ' &nbsp; ';
 		echo htmlLink( 'Delete older than 24h?', '/logs', null, array( 'delete' => 1 ) );
+		echo ' &nbsp; ';
+		echo '<a href="', Application::SITE_URL, '">Site</a>';
 		echo BR;
 		$this->iterator->printPageIndex( 'More logs:' );
 		echo '<ul>';
