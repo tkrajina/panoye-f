@@ -74,10 +74,10 @@ try {
 <style type="text/css">
 body {
 	margin:10px;
-    font-family: arial, helvetica, sans-serif;
+	font-family: arial, helvetica, sans-serif;
 	font-size: 11px;
-    background-color: white;
-    color: black;
+	background-color: white;
+	color: black;
 }
 </style>
 <meta http-equiv="refresh" content="0.3;url=' . $redirectUrl . '" />

@@ -2,10 +2,10 @@
 
 class FrameworkApplicationObject {
 
-    public function __construct() {
-    }
+	public function __construct() {
+	}
 
-    public function saveError( $error ) {}
+	public function saveError( $error ) {}
 
 	public function onPage() {}
 

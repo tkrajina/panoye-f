@@ -14,14 +14,14 @@ class DateTest extends AppTest {
 
 	public function testCurrentDate() {
 		$d = new Date();
-    	$year = date( 'Y', microtime( true ) );
-    	$month = date( 'n', microtime( true ) );
-    	$day = date( 'j', microtime( true ) );
-    	d( $day . '.' . $month . '.' . $year );
-    	d( $d->toString() );
-    	$this->assertTrue( $d->getYear() == $year );
-    	$this->assertTrue( $d->getMonth() == $month );
-    	$this->assertTrue( $d->getDay() == $day );
+		$year = date( 'Y', microtime( true ) );
+		$month = date( 'n', microtime( true ) );
+		$day = date( 'j', microtime( true ) );
+		d( $day . '.' . $month . '.' . $year );
+		d( $d->toString() );
+		$this->assertTrue( $d->getYear() == $year );
+		$this->assertTrue( $d->getMonth() == $month );
+		$this->assertTrue( $d->getDay() == $day );
 	}
 
 	public function testSqlString() {

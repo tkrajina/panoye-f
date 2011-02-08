@@ -9,8 +9,8 @@ class AppTest {
 	private $tests = 0;
 	private $errors = 0;
 
-    function __construct() {
-    }
+	function __construct() {
+	}
 
 	function execute( $method = null ) {
 		$this->readTestMethods();

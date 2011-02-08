@@ -2,9 +2,9 @@
 
 class Visit extends AppObject {
 
-    public function __construct( $propertiesOrObject = null ) {
-    	parent::__construct( $propertiesOrObject );
-    }
+	public function __construct( $propertiesOrObject = null ) {
+		parent::__construct( $propertiesOrObject );
+	}
 
 	public function getTableName() {
 		return 'visit';
@@ -12,14 +12,14 @@ class Visit extends AppObject {
 
 	public function getTableColumns() {
 		return array(
-		    'login' => self::STRING,
-		    'ip' => self::STRING,
-		    'browser' => self::STRING,
-		    'referer' => self::STRING,
-		    'url' => self::STRING,
-		    'post' => self::STRING,
-		    'time' => self::STRING,
-		    'form_response' => self::STRING,
+			'login' => self::STRING,
+			'ip' => self::STRING,
+			'browser' => self::STRING,
+			'referer' => self::STRING,
+			'url' => self::STRING,
+			'post' => self::STRING,
+			'time' => self::STRING,
+			'form_response' => self::STRING,
 		);
 	}
 

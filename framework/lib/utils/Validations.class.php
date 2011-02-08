@@ -2,8 +2,8 @@
 
 class Validations {
 
-    private function __construct() {
-    }
+	private function __construct() {
+	}
 
 	public static function isDecimal( $string ) {
 		return preg_match( '/^[+\-]{0,1}\d[\d\.]*$/', '' . $string );
