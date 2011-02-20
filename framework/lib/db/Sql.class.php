@@ -6,7 +6,7 @@ class Sql {
 
 	private $generatedKey;
 
-	public function __construct( $template ) {
+	public function __construct( $template = null ) {
 		$this->template = $template;
 		return $this;
 	}
