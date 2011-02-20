@@ -11,6 +11,10 @@ class Sql {
 		return $this;
 	}
 
+	public function append( $sqlChunk ) {
+		$this->template .= ' ' . $sqlChunk;
+	}
+
 	/** Be careful when using this method because of SQL injection. */
 	public function set( $parameter, $value ) {
 		$this->template = str_replace( ':' . $parameter, $value, $this->template );
