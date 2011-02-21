@@ -6,9 +6,13 @@ class Sql {
 
 	private $generatedKey;
 
-	public function __construct( $template ) {
+	public function __construct( $template = null ) {
 		$this->template = $template;
 		return $this;
+	}
+
+	public function append( $sqlChunk ) {
+		$this->template .= ' ' . $sqlChunk;
 	}
 
 	/** Be careful when using this method because of SQL injection. */
