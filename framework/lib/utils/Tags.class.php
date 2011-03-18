@@ -6,6 +6,9 @@ class Tags {
 	private static $opened = array();
 
 	public static function open( $tag, $params = null, $empty = false ) {
+
+		Logs::warn( 'Tags.class.php is deprecated, use HtmlHelper instead' );
+
 		if( ! $empty ) {
 			self::$opened[] = $tag;
 		}
@@ -50,6 +53,10 @@ class Tags {
 		while( sizeof( self::$opened ) > 0 ) {
 			self::close();
 		}
+	}
+
+	public static function getOpened() {
+		return self::$opened;
 	}
 
 	public static function reset() {
