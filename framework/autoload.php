@@ -28,7 +28,7 @@ class AutoloadUtils {
 			return self::$paths;
 		}
 
-		$directories = array( FRAMEWORK . 'lib/', APP . 'lib/', APP . 'objects/' );
+		$directories = array( FRAMEWORK . 'lib/', APP . 'lib/', APP . 'objects/', APP . 'dao/' );
 
 		$result = unserialize( Cache::load( 'framework', 'paths' ) );
 
@@ -46,6 +46,9 @@ class AutoloadUtils {
 
 	private static function findClasses( $directory ) {
 		$result = array();
+		if( ! is_dir( $directory ) ) {
+			return $result;
+		}
 		if( $handle = opendir( $directory ) ) {
 			while( false !== ( $file = readdir( $handle ) ) ) {
 				$path = $directory . '/' . $file;
