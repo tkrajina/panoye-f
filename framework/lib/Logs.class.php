@@ -17,16 +17,16 @@ class Logs {
 	private static function prepareArgs( $args ) {
 		$result = '';
 		foreach( $args as $arg ) {
-			if( is_array( $arg ) ) {
-				$result .= var_export( $arg, true );
-			}
-			else {
-				try {
+			try {
+				if( is_array( $arg ) ) {
+					$result .= var_export( $arg, true );
+				}
+				else {
 					$result .= '' . $arg;
 				}
-				catch( Exception $e ) {
-					$result .= '[Can\'t convert arg to string]';
-				}
+			}
+			catch( Exception $e ) {
+				$result .= '[Can\'t convert arg to string]';
 			}
 		}
 		return str_replace( "\n", ' ', $result );
