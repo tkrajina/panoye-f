@@ -51,6 +51,10 @@ class Sql {
 		return $this;
 	}
 
+	public function setTimestamp( $parameter, $value ) {
+		$this->setString( $prameter, $value->toSqlTime() );
+	}
+
 	public function getSql() {
 		return $this->template;
 	}

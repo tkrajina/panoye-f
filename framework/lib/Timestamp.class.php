@@ -79,8 +79,8 @@ class Timestamp {
 		$this->time += 60 * $min;
 	}
 
-	public function addHours( $min ) {
-		$this->time += 60 * 60 * $min;
+	public function addHours( $hours ) {
+		$this->time += 60 * 60 * $hours;
 	}
 
 	public function addDays( $d ) {
