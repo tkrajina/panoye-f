@@ -95,7 +95,7 @@ class PageParser {
 				global $queryString;
 				$hash = md5( Application::SECRET_APP_KEY . $queryString . @$parts[ 1 ] );
 				if( $hash == @$parts[ 0 ] ) {
-					$result[ $parts[ 1 ] ] = $_POST[ $parts[ 1 ] ];
+					$result[ $parts[ 1 ] ] = @$_POST[ @$parts[ 1 ] ];
 				}
 				else {
 					Logs::error( 'Ne valja hash od: ' . $key );

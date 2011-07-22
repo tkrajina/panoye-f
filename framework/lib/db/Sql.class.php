@@ -52,7 +52,7 @@ class Sql {
 	}
 
 	public function setTimestamp( $parameter, $value ) {
-		$this->setString( $prameter, $value->toSqlTime() );
+		$this->setString( $parameter, $value->toSqlTime() );
 	}
 
 	public function getSql() {
