@@ -21,8 +21,11 @@ function import( $path1, $path2 = '' ) {
 
 //////////////////////////////////////////////////////
 
-import( FRAMEWORK, 'FrameworkApplicationObject.class.php' );
-import( APP, 'Application.class.php' );
+// Application may be defined in index.php, if so, do not load the default one:
+if( ! class_exists( 'Application' ) ) {
+	import( FRAMEWORK, 'FrameworkApplicationObject.class.php' );
+	import( APP, 'Application.class.php' );
+}
 import( FRAMEWORK . 'lib/db/Db.class.php' );
 
 function customErrorReporting( $errno, $errstr, $errfile, $errline, $errcontext ) {
