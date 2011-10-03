@@ -38,16 +38,20 @@ class PageParser {
 		$pageClassFile = @$paths[ @strtolower( @$_GET[ 'page' ] ) ];
 //		ddie( $paths );
 		if( ! $pageClassFile ) {
+			Logs::error( 'No page class file found for ', @$_GET[ 'page' ] );
 			throw new AppException( 'Page not found: ' . $_GET[ 'page' ] . '(' . $pageClassFile . ')' );
 		}
 		$class = str_replace( '.class.php', '', Files::getFileName( $pageClassFile ) );
 		if( ! $class ) {
-			throw new AppException( 'Nema stranice 2' );
+			Logs::error( 'No class file found for ', $pageClassFile );
+			throw new AppException( 'Page not found' );
 		}
 
 		// Ako postoji include.php u istom direktoriju onda ce ga includati
 		$includePath = Files::getPath( $pageClassFile );
 		$this->checkIncludePhpFiles( $includePath );
+
+		Logs::info( 'Page file:', $pageClassFile );
 
 		require_once $pageClassFile;
 		$this->page = new $class();
