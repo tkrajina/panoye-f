@@ -185,9 +185,10 @@ class AppObject extends Object {
 				continue;
 			}
 			if( $key == 'sef_url' ) {
+				Logs::debug( 'Tu!' );
 				// Treba li postavljati pocetni SEO url?
 				// Samo ako je zadano iz cega ga treba kreirati i ako nije vec otprije kreiran:
-				if( strlen( $this->getUrlFrom() ) > 0 && ( $createSefUrl || ( is_array( $updateColumns ) && @in_array( 'sef_url', $updateColumns ) ) ) ) {
+				if( strlen( $this->getUrlFrom() ) > 0 && ( ! $this->getSefUrl() || $createSefUrl || ( is_array( $updateColumns ) && @in_array( 'sef_url', $updateColumns ) ) ) ) {
 					$url = Strings::seoFriendly( $properties[ $this->getUrlFrom() ] );
 					$sefUrl = $this->findSefUrl( $url );
 					$this->setSefUrl( $sefUrl );
