@@ -13,6 +13,10 @@ class FrameworkApplicationObject {
 
 	public function onEnd() {}
 
+	public function getCatchAllPage() {
+		return null;
+	}
+
 	public function getPageAliases() {
 		return array();
 	}

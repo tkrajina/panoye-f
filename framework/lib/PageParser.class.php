@@ -1,18 +1,5 @@
 <?php
 
-/*
-
-panorama-image.p_12.html -> panorama/image argument p => 12
-panorama-image.p_12.a_1.html -> panorama/image argument p => 12, a => 1
-panorama-image.12.html -> panorama/image argument string je 12
-panorama-image.html -> panorama/image nema argumenata
-
-Stranica je do prve tocke
-ako je nakon toga ekstenzija => nema argumenata
-Inace su argumenti podijeljeni stockom.
-
- */
-
 global $queryStringPath;
 global $queryStringParameters;
 global $queryStringExtension;
@@ -33,14 +20,26 @@ class PageParser {
 	}
 
 	private function parse() {
+		global $application;
+
 		$paths = $this->pagePaths();
 
 		$pageClassFile = @$paths[ @strtolower( @$_GET[ 'page' ] ) ];
-//		ddie( $paths );
+		if( ! $pageClassFile ) {
+			$catchAllPage = $application->getCatchAllPage();
+			if( $catchAllPage ) {
+				$pageClassFile = @$paths[ @strtolower( $catchAllPage ) ];
+				Logs::debug( 'Catch all page ', $catchAllPage, ' -> ', $pageClassFile );
+			}
+		}
+
 		if( ! $pageClassFile ) {
 			Logs::error( 'No page class file found for ', @$_GET[ 'page' ] );
-			throw new AppException( 'Page not found: ' . $_GET[ 'page' ] . '(' . $pageClassFile . ')' );
+			throw new AppException( 'Page not found for ' . $_GET[ 'page' ] );
 		}
+
+
+
 		$class = str_replace( '.class.php', '', Files::getFileName( $pageClassFile ) );
 		if( ! $class ) {
 			Logs::error( 'No class file found for ', $pageClassFile );
