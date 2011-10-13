@@ -75,15 +75,11 @@ class AppObject extends Object {
 				$type = @$columns[ $key ];
 				$value = @$properties[ $key ];
 				if( $type == self::TIMESTAMP ) {
-					if( is_a( $value, 'Timestamp' ) ) {
-						$properties[ $key ] = $value;
-					} else {
+					if( $value != null ) {
 						$properties[ $key ] = new Timestamp( $value );
 					}
 				} else if( $type == self::DATE ) {
-					if( is_a( $value, 'Date' ) ) {
-						$properties[ $key ] = $value;
-					} else {
+					if( $value != null ) {
 						$properties[ $key ] = new Date( $value );
 					}
 				}
@@ -167,7 +163,8 @@ class AppObject extends Object {
 	public function insert() {
 		$this->beforeInserted();
 		$sql = new Sql( 'insert into :table set :set, created=now()' );
-		$sql->setAlfanumeric( 'table', $this->getTableName() )->set( 'set', $this->sqlSetData( null, true ) );
+		$sql->setAlfanumeric( 'table', $this->getTableName() );
+		$sql->set( 'set', $this->sqlSetData( null, true ) );
 		if( $sql->insert() ) {
 			$this->setId( $sql->generatedKey() );
 			$this->afterInserted();
@@ -219,7 +216,8 @@ class AppObject extends Object {
 					if( ! isset( $properties[ $key ] ) ) {
 						$row .= 'null';
 					}
-					if( strtolower( get_class( $value ) ) == 'timestamp' ) {
+					$class = strtolower( get_class( $value ) );
+					if( $class == 'timestamp' || $class == 'date' ) {
 						$row .= "'" . $value->toSqlTime() . "'";
 					}
 				}
@@ -228,7 +226,7 @@ class AppObject extends Object {
 						$row .= 'null';
 					}
 					$class = strtolower( get_class( $value ) );
-					if( $class == 'date' || $class == 'date' ) {
+					if( $class == 'timestamp' || $class == 'date' ) {
 						$row .= "'" . $value->toSqlDate() . "'";
 					}
 				}
