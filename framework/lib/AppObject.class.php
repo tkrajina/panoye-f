@@ -75,10 +75,17 @@ class AppObject extends Object {
 				$type = @$columns[ $key ];
 				$value = @$properties[ $key ];
 				if( $type == self::TIMESTAMP ) {
-					$properties[ $key ] = new Timestamp( $value );
-				}
-				if( $type == self::DATE ) {
-					$properties[ $key ] = new Date( $value );
+					if( is_a( $value, 'Timestamp' ) ) {
+						$properties[ $key ] = $value;
+					} else {
+						$properties[ $key ] = new Timestamp( $value );
+					}
+				} else if( $type == self::DATE ) {
+					if( is_a( $value, 'Date' ) ) {
+						$properties[ $key ] = $value;
+					} else {
+						$properties[ $key ] = new Date( $value );
+					}
 				}
 			}
 		}

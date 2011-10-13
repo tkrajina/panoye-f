@@ -64,4 +64,12 @@ class Date extends Timestamp {
 		return $this->valid;
 	}
 
+	/**
+	 * return the time() at 12:00 of the given date.
+	 */
+	public function getTime() {
+		$result = mktime( 12, 0, 0, $this->getMonth(), $this->getDay(), $this->getYear() );
+		return $result;
+	}
+
 }
