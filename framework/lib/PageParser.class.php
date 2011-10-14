@@ -90,7 +90,7 @@ class PageParser {
 		}
 		$fields = explode( ',', $fields );
 		foreach( $fields as $key ) {
-			$parts = split( ':', $key );
+			$parts = explode( ':', $key );
 			if( sizeof( $parts ) != 2 ) {
 				Logs::error( 'Neispravno post polje: ' . $key );
 			}
