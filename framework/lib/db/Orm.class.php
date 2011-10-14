@@ -58,21 +58,24 @@ class Orm {
 					Logs::error( 'Null column: ', $attributeName, ' (defined as NOT NULL!)' );
 					return false;
 				}
-				if( in_array( self::INTEGER ) ) {
+				if( in_array( self::INTEGER, $metadata ) ) {
+					// TODO: treba biti attribute name:
 					$sql->setInt( $columnName, $attributeValue );
-				} else if( in_array( self::STRING ) ) {
+				} else if( in_array( self::STRING, $metadata ) ) {
 					$sql->setString( $columnName, $attributeValue );
-				} else if( in_array( self::DECIMAL ) ) {
+				} else if( in_array( self::DECIMAL, $metadata ) ) {
 					$sql->setDecimal( $columnName, $attributeValue );
-				} else if( in_array( self::TIMESTAMP ) ) {
-					// TODO
-				} else if( in_array( self::DATE ) ) {
-					// TODO
+				} else if( in_array( self::TIMESTAMP, $metadata ) ) {
+					$sql->setTimestamp( $columnName, $attributeValue );
+				} else if( in_array( self::DATE, $metadata ) ) {
+					$sql->setTimestamp( $columnName, $attributeValue );
 				}
 			}
 
 			// TODO sef_url
 		}
+
+		Logs::debug( 'SQL:', $sql->getSql() );
 
 		return $sql->execute();
 	}
@@ -90,14 +93,19 @@ class Orm {
 	}
 
 	private static function toDbName( $name ) {
-		// TODO
+		return strtolower( preg_replace( '/(.)([A-Z])/', '$1_$2', $name ) );
 	}
 
 	private static function toObjectName( $name ) {
-		// TODO
+		$string = strtolower( $name );
+		return substr( str_replace( ' ', '', ucwords( '_' . str_replace( '_', ' ', $string ) ) ), 1 );
 	}
 
 }
+
+/*
+
+Example of orm class registration:
 
 $columns = array( 
 	'title' => array( Orm::NOT_NULL, Orm::STRING, Orm::SEF_URL_GENERATOR ),
@@ -106,3 +114,4 @@ $columns = array(
 );
 
 Orm::registerClass( 'Newsletter', 'newsletter', $columns );
+*/
