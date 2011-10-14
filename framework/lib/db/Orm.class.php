@@ -38,17 +38,20 @@ class Orm {
 		$tableName = self::$classesTables[ $className ];
 		$columnsMetadata = self::$classesColumnsMetadata[ $className ];
 
-		$sqlString = 'insert into ' . $tableName . ' ';
-
+		$sqlString = 'insert into ' . $tableName . ' set ';
 		foreach( $columnsMetadata as $columnName => $metadata ) {
 			$sqlString .= $columnName . ' = :' . $columnName . ', ';
 		}
-
 		$sqlString .= 'updated = now() ';
 
+		$sql = self::fillSqlValues( $object, $columnsMetadata, $sqlString );
+
+		return $sql->execute();
+	}
+
+	private static final function fillSqlValues( $object, $columnsMetadata, $sqlString ) {
 		$sql = new Sql( $sqlString );
 
-		// Ovo u posebnu metodu:
 		$objectAttributes = get_object_vars( $object );
 		foreach( $columnsMetadata as $columnName => $metadata ) {
 			$attributeName = self::toObjectName( $columnName );
@@ -91,9 +94,7 @@ class Orm {
 			// TODO sef_url
 		}
 
-		Logs::debug( 'SQL:', $sql->getSql() );
-
-		return $sql->execute();
+		return $sql;
 	}
 
 	public static function update( $object ) {
@@ -115,6 +116,10 @@ class Orm {
 	private static function toObjectName( $name ) {
 		$string = strtolower( $name );
 		return substr( str_replace( ' ', '', ucwords( '_' . str_replace( '_', ' ', $string ) ) ), 1 );
+	}
+
+	private function findSefUrl( $string ) {
+		// TODO
 	}
 
 }
