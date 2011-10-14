@@ -110,29 +110,3 @@ class Timestamp {
 	}
 
 }
-
-/*
-
-/** Kao timestamp, ali s par dodatnih funkcija za datum. TODO *
-class Date extends Timestamp {
-
-	// TODO...
-
-	public function __construct( $arg ) {
-		parent::__construct( $arg );
-		// TODO: Da uvijek ima vrijem u danu: 12:00
-	}
-
-	public function next() {
-		$this->addDays( 1 );
-	}
-
-	public function previous() {
-		$this->addDays( -1 );
-	}
-
-	// TODO
-	// TODO: toString() da vraca SQL format za datum
-
-}
-*/

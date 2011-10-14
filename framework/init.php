@@ -86,13 +86,3 @@ function confirmLink( $html, $question, $page, $argOrObject, $args = array() ) {
 	return '<a href="#" onclick="if(confirm(\'' . $question . '\')){document.location=\'' . url( $page, $argOrObject, $args ) . '\';};return false;">' . $html . '</a>';
 }
 
-function printTimer( $text = '' ) {
-	global $__timer;
-	if( ! $__timer ) {
-		$__timer = 1000 * microtime( true );
-	}
-	$time = 1000 * microtime( true );
-	d( $text . ':' . ( (int) ( $time - $__timer ) ) . '...' . ( (int) ( ( $time - 1000 * STARTED ) ) ) . '...' . microtime( true ) );
-	$__timer = 1000 * microtime( true );
-}
-
