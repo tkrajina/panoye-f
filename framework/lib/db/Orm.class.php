@@ -41,7 +41,7 @@ class Orm {
 		$sqlString = 'insert into ' . $tableName . ' ';
 
 		foreach( $columnsMetadata as $columnName => $metadata ) {
-			$sqlString .= 'columnName = :columnName, ';
+			$sqlString .= $columnName . ' = :' . $columnName . ', ';
 		}
 
 		$sqlString .= 'updated = now() ';
@@ -53,24 +53,40 @@ class Orm {
 		foreach( $columnsMetadata as $columnName => $metadata ) {
 			$attributeName = self::toObjectName( $columnName );
 			$attributeValue = @$objectAttributes[ $attributeName ];
-			if( $attributeValue === null ) {
-				if( in_array( self::NOT_NULL, $metadata ) ) {
-					Logs::error( 'Null column: ', $attributeName, ' (defined as NOT NULL!)' );
-					return false;
-				}
-				if( in_array( self::INTEGER, $metadata ) ) {
-					// TODO: treba biti attribute name:
+			if( in_array( self::INTEGER, $metadata ) ) {
+				if( $attributeValue === null && in_array( self::NOT_NULL, $metadata ) ) {
+					$sql->setInt( $columnName, 0 );
+				} else {
 					$sql->setInt( $columnName, $attributeValue );
-				} else if( in_array( self::STRING, $metadata ) ) {
+				}
+			} else if( in_array( self::STRING, $metadata ) ) {
+				if( $attributeValue === null && in_array( self::NOT_NULL, $metadata ) ) {
+					$sql->setString( $columnName, '' );
+				} else {
 					$sql->setString( $columnName, $attributeValue );
-				} else if( in_array( self::DECIMAL, $metadata ) ) {
+				}
+			} else if( in_array( self::DECIMAL, $metadata ) ) {
+				if( $attributeValue === null && in_array( self::NOT_NULL, $metadata ) ) {
+					$sql->setDecimal( $columnName, 0 );
+				} else {
 					$sql->setDecimal( $columnName, $attributeValue );
-				} else if( in_array( self::TIMESTAMP, $metadata ) ) {
-					$sql->setTimestamp( $columnName, $attributeValue );
-				} else if( in_array( self::DATE, $metadata ) ) {
+				}
+			} else if( in_array( self::TIMESTAMP, $metadata ) ) {
+				if( $attributeValue === null && in_array( self::NOT_NULL, $metadata ) ) {
+					$sql->setTimestamp( $columnName, new Timestamp() );
+				} else {
 					$sql->setTimestamp( $columnName, $attributeValue );
 				}
+			} else if( in_array( self::DATE, $metadata ) ) {
+				if( $attributeValue === null && in_array( self::NOT_NULL, $metadata ) ) {
+					$sql->setTimestamp( $columnName, $attributeValue );
+				} else {
+					$sql->setTimestamp( $columnName, $attributeValue );
+				}
+			} else {
+				Logs::debug( 'Invalid column type for:', $columnName );
 			}
+			Logs::debug( 'SQL nakon ', $columnName, ':', $sql->getSql() );
 
 			// TODO sef_url
 		}
