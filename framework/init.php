@@ -19,6 +19,13 @@ function pdie( $a ) { echo '<pre>' . $a . '</pre>'; die(); }
 function d( $a ) { echo '<pre>'; var_dump( $a ); echo '</pre>'; }
 function ddie( $a ) { echo '<pre>'; var_dump( $a ); echo '</pre>'; die(); }
 
+function valueOr( $value, $ifNotVar ) {
+	if( ! $value ) {
+		return $ifNotVar;
+	}
+	return $value;
+}
+
 function url( $page, $argOrObject = null, $args = array() ) {
 
 	$result = preg_replace( '/[^\w\d]+/', ' ', strtolower( $page ) );
