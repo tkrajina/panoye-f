@@ -26,10 +26,11 @@ try {
 			$page->deleteCache();
 		}
 
-		global $application;
+		global $application, $applicationEvents;
 
 		// Call Application::onPage:
-		$application->onPage( $page );
+		if( is_callable( array( $applicationEvents, 'onPage' ) ) ) 
+			$applicationEvents->onPage( $page );
 
 		// Execute the page:
 		$page->executePage();
