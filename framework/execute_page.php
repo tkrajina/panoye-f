@@ -29,7 +29,9 @@ try {
 		global $application;
 
 		// Call Application::onPage:
-		$application->onPage( $page );
+		if( is_callable( array( $application, 'onPage' ) ) ) {
+			$application->onPage( $page );
+		}
 
 		// Execute the page:
 		$page->executePage();

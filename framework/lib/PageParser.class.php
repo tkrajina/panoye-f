@@ -26,10 +26,12 @@ class PageParser {
 
 		$pageClassFile = @$paths[ @strtolower( @$_GET[ 'page' ] ) ];
 		if( ! $pageClassFile ) {
-			$catchAllPage = $application->getCatchAllPage();
-			if( $catchAllPage ) {
-				$pageClassFile = @$paths[ @strtolower( $catchAllPage ) ];
-				Logs::debug( 'Catch all page ', $catchAllPage, ' -> ', $pageClassFile );
+			if( is_callable( array( $application, 'getCatchAllPage' ) ) ) {
+				$catchAllPage = $application->getCatchAllPage();
+				if( $catchAllPage ) {
+					$pageClassFile = @$paths[ @strtolower( $catchAllPage ) ];
+					Logs::debug( 'Catch all page ', $catchAllPage, ' -> ', $pageClassFile );
+				}
 			}
 		}
 

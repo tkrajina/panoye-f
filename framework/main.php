@@ -86,10 +86,11 @@ if( sizeof( $_POST ) == 0 && $fileName && is_file( $fileName ) ) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-//Db::open();
-
 $application = new Application();
-$pageAliases = $application->getPageAliases();
+$pageAliases = null;
+if( is_callable( array( $application, 'getPageAliases' ) ) ) {
+	$pageAliases = $application->getPageAliases();
+}
 if( ! is_array( $pageAliases ) ) {
 	$pageAliases = array();
 }
@@ -103,7 +104,9 @@ foreach( $pageAliases as $page => $alias ) {
 
 //////////////////////////////////////////////////////
 
-$application->onStart();
+if( is_callable( array( $application, 'onStart' ) ) ) {
+	$application->onStart();
+}
 
 //////////////////////////////////////////////////////
 
@@ -116,7 +119,10 @@ if( ! $executedCachedPage ) {
 }
 
 $time = ( microtime( true ) - STARTED );
-$application->onEnd();
+
+if( is_callable( array( $application, 'onEnd' ) ) ) {
+	$application->onEnd();
+}
 Logs::info( 'Page execution time:', $time );
 
 if( Logs::isSave() ) {
