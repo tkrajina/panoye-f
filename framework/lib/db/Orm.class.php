@@ -22,7 +22,17 @@ class Orm {
 	}
 
 	public static function exists( $object ) {
+		$className = get_class( $object );
+		$tableName = self::$classesTables[ $className ];
+		$columnsMetadata = self::$classesColumnsMetadata[ $className ];
 		// TODO
+
+		$sqlString = 'select id from ' . $tableName . ' where id = ' . (int) $object->id;
+		$sql = new Sql( $sqlString );
+
+		$first = $sql->first();
+
+		return (boolean) $first;
 	}
 
 	public static function save( $object ) {
