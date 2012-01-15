@@ -59,6 +59,30 @@ class Orm {
 		return $sql->execute();
 	}
 
+	public static function update( $object ) {
+		$className = get_class( $object );
+		$tableName = self::$classesTables[ $className ];
+
+		$sqlString = 'update ' . $tableName . ' set ';
+		foreach( $columnsMetadata as $columnName => $metadata ) {
+			$sqlString .= $columnName . ' = :' . $columnName . ', ';
+		}
+		$sqlString .= 'updated = now() ';
+		$sqlString .= 'where id = ' . $object->id;
+
+		$sql = self::fillSqlValues( $object, $columnsMetadata, $sqlString );
+
+		return $sql->execute();
+	}
+
+	public static function load( $object ) {
+		// TODO
+	}
+
+	public static function query( $className, $whereQuery ) {
+		// TODO
+	}
+
 	private static final function fillSqlValues( $object, $columnsMetadata, $sqlString ) {
 		$sql = new Sql( $sqlString );
 
@@ -105,18 +129,6 @@ class Orm {
 		}
 
 		return $sql;
-	}
-
-	public static function update( $object ) {
-		// TODO
-	}
-
-	public static function load( $object ) {
-		// TODO
-	}
-
-	public static function query( $className, $whereQuery ) {
-		// TODO
 	}
 
 	private static function toDbName( $name ) {
