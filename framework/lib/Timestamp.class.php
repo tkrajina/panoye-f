@@ -6,15 +6,23 @@ class Timestamp {
 	private $time;
 
 	/** $time treba biti broj ili string. */
-	public function __construct( $time = null ) {
-		if( is_numeric( $time ) ) {
-			$this->time = $time;
-		}
-		else if( is_string( $time ) ) {
-			$this->time = @strtotime( $time );
-		}
-		else if( $time == null ) {
+	public function __construct( $timeOrSqlStringOrYear = null, $month = null, $day = null, $hour = null, $minute = null, $second = null ) {
+		if( is_numeric( $timeOrSqlStringOrYear ) && is_numeric( $month ) && is_numeric( $day ) ) {
+
+			$this->time = mktime( (int) $hour, (int) $minute, (int) $second, $month, $day, $timeOrSqlStringOrYear );
+
+		} else if( is_string( $timeOrSqlStringOrYear ) ) {
+
+			$this->time = strtotime( $timeOrSqlStringOrYear );
+
+		} else if( is_numeric( $timeOrSqlStringOrYear ) ) {
+
+			$this->time = $timeOrSqlStringOrYear;
+
+		} else if( $timeOrSqlStringOrYear == null ) {
+
 			$this->time = microtime( true );
+
 		}
 	}
 

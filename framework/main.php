@@ -22,10 +22,12 @@ function import( $path1, $path2 = '' ) {
 //////////////////////////////////////////////////////
 
 // Application may be defined in index.php, if so, do not load the default one:
-if( ! class_exists( 'Application' ) ) {
-	import( FRAMEWORK, 'FrameworkApplicationObject.class.php' );
+if( ! class_exists( 'Application' ) )
 	import( APP, 'Application.class.php' );
-}
+
+if( ! class_exists( 'ApplicationEvents' ) )
+	import( APP, 'ApplicationEvents.class.php' );
+
 import( FRAMEWORK . 'lib/db/Db.class.php' );
 
 function customErrorReporting( $errno, $errstr, $errfile, $errline, $errcontext ) {
@@ -86,14 +88,16 @@ if( sizeof( $_POST ) == 0 && $fileName && is_file( $fileName ) ) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-//Db::open();
-
 $application = new Application();
-$pageAliases = $application->getPageAliases();
+$applicationEvents = new ApplicationEvents();
+$pageAliases = null;
+if( is_callable( array( $application, 'getPageAliases' ) ) ) {
+	$pageAliases = $application->getPageAliases();
+}
 if( ! is_array( $pageAliases ) ) {
 	$pageAliases = array();
 }
-global $application, $pageAliases;
+global $application, $pageAliases, $applicationEvents;
 
 foreach( $pageAliases as $page => $alias ) {
 	if( $alias == $_GET[ 'page' ] ) {
@@ -103,7 +107,8 @@ foreach( $pageAliases as $page => $alias ) {
 
 //////////////////////////////////////////////////////
 
-$application->onStart();
+if( is_callable( array( $applicationEvents, 'onStart' ) ) )
+	$applicationEvents->onStart();
 
 //////////////////////////////////////////////////////
 
@@ -116,7 +121,10 @@ if( ! $executedCachedPage ) {
 }
 
 $time = ( microtime( true ) - STARTED );
-$application->onEnd();
+
+if( is_callable( array( $applicationEvents, 'onEnd' ) ) ) {
+	$applicationEvents->onEnd();
+}
 Logs::info( 'Page execution time:', $time );
 
 if( Logs::isSave() ) {

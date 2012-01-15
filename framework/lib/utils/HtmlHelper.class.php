@@ -13,6 +13,7 @@ class HtmlHelper {
 		if( ! $empty ) {
 			$this->opened[] = $tag;
 		}
+		Logs::debug( 'Nakon open:', $this->opened );
 		echo '<' . $tag;
 		if( is_array( $params ) ) {
 			foreach( $params as $key => $value ) {
@@ -42,9 +43,15 @@ class HtmlHelper {
 	}
 
 	public function close( $tag = null ) {
-		if( $tag === null ) {
-			$tag = @array_pop( $this->opened );
+		$tagToClose = @array_pop( $this->opened );
+		if( $tag ) {
+			if( $tagToClose != $tag ) {
+				Log::error( 'Close wrong tag:', $tag );
+			}
+		} else {
+			$tag = $tagToClose;
 		}
+		Logs::debug( 'Nakon closed:', $this->opened );
 		if( $tag ) {
 			echo '</' . $tag . '>';
 		}
@@ -64,11 +71,9 @@ class HtmlHelper {
 	public function checkAllClosed() {
 		global $application;
 		if( $this->opened ) {
+			Logs::error( 'Unclosed tags:', $this->opened );
 			if( Application::DEBUG ) {
 				throw new AppException( 'Unclosed tags!' );
-			}
-			else {
-				Logs::error( 'Unclosed tags:', $this->opened );
 			}
 		}
 	}
