@@ -1,4 +1,6 @@
 .project
 *.swp
+*.swo
 cache/
 .svn
+tags
