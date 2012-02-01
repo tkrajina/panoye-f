@@ -126,6 +126,9 @@ class Page {
 
 		$sefUrl = $arg;
 
+		if( ! $sefUrl )
+			return false;
+
 		$tableName = preg_replace( '/[^\w\d_]/', '', $object->getTableName() );
 		$sql = new Sql( 'select * from ' . $tableName . ' where sef_url=:url' );
 		$sql->setString( 'url', $sefUrl );
@@ -135,6 +138,7 @@ class Page {
 			return false;
 		}
 		$this->setObject( $object );
+
 		return $object;
 	}
 
