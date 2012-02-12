@@ -39,13 +39,7 @@ class FormPage extends Page {
 			}
 			$this->getObject()->addProperties( $this->preparePropertiesForObject( $this->postParameters ) );
 			$this->validate();
-			if( $this->hasErrors() ) {
-//				global $visit;
-//				$visit->setFormResponse( $visit->prepareArray( $this->getErrors() ) );
-			}
-			else {
-//				global $visit;
-//				$visit->setFormResponse( 'OK' );
+			if( ! $this->hasErrors() ) {
 				$this->submit();
 
 				// Ako je sve uredno prošlo sa submitom onda se i briše cache (jer
@@ -154,8 +148,6 @@ class FormPage extends Page {
 	}
 
 	private function isError( $property ) {
-//		d( $property );
-//		ddie( $this->errors );
 		foreach( $this->errors as $key => $value ) {
 			if( strtolower( $key ) == strtolower( $property ) ) {
 				return true;
