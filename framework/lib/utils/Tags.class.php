@@ -41,7 +41,7 @@ class Tags {
 		$tagToClose = @array_pop( self::$opened );
 		if( $tag ) {
 			if( $tagToClose != $tag ) {
-				Log::error( 'Close wrong tag:', $tag );
+				Logs::error( 'Close wrong tag:', $tag );
 			}
 		} else {
 			$tag = $tagToClose;
