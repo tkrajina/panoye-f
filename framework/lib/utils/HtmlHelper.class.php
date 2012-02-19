@@ -13,7 +13,6 @@ class HtmlHelper {
 		if( ! $empty ) {
 			$this->opened[] = $tag;
 		}
-		Logs::debug( 'Nakon open:', $this->opened );
 		echo '<' . $tag;
 		if( is_array( $params ) ) {
 			foreach( $params as $key => $value ) {
@@ -51,7 +50,6 @@ class HtmlHelper {
 		} else {
 			$tag = $tagToClose;
 		}
-		Logs::debug( 'Nakon closed:', $this->opened );
 		if( $tag ) {
 			echo '</' . $tag . '>';
 		}

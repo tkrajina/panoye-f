@@ -9,7 +9,6 @@ class Tags {
 		if( ! $empty ) {
 			self::$opened[] = $tag;
 		}
-		Logs::debug( 'Nakon open:', self::$opened );
 		echo '<' . $tag;
 		if( is_array( $params ) ) {
 			foreach( $params as $key => $value ) {
@@ -47,7 +46,6 @@ class Tags {
 		} else {
 			$tag = $tagToClose;
 		}
-		Logs::debug( 'Nakon closed:', self::$opened );
 		if( $tag ) {
 			echo '</' . $tag . '>';
 		}
