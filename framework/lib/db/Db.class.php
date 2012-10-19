@@ -1,5 +1,9 @@
 <?php
 
+if(!function_exists('mysql_connect')) {
+    die('php must be compiled/installed with mysql support!');
+}
+
 /**
  * Db Utility methods.
  *

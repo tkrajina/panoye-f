@@ -43,12 +43,6 @@ try {
 		if( $page->isRedirect() ) {
 			$redirectUrl = $page->getRedirect();
 
-			// Provjera da nije redirekcija na potpuno istu stranicu:
-//			$parts = explode( $redirectUrl, $_SERVER[ 'REQUEST_URI' ] );
-//			if( sizeof( $parts ) == 2 && strlen( $parts[ 1 ] ) == 0 ) {
-//				$redirectUrl = url( 'error' );
-//			}
-
 			// Provjera je li adresa relativna ili apsolutna:
 			if( strpos( $redirectUrl, '://' ) === false ) {
 				$redirectUrl = Application::SITE_URL . $redirectUrl;
